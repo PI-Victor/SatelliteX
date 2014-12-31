@@ -1,4 +1,4 @@
 monito
 ======
 
-server monitor in go with an optional mongodb backend
+prototype - server monitor in go with an optional mongodb backend
