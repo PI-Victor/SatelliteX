@@ -15,9 +15,12 @@ const (
 )
 
 
+var (
+	cwd string = getdir()
+)
+
 func main() {
 	//just print the dir for the file for now
-	cwd := getdir()
 	fmt.Println("we are in the dir", cwd)
 	stat, err := linuxproc.ReadStat(statdir)
 	
