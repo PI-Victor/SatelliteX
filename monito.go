@@ -10,12 +10,16 @@ import (
 	_ "github.com/sevlyar/go-daemon"
 )
 
+const (
+	statdir = "/proc/stat"
+)
+
 
 func main() {
 	//just print the dir for the file for now
 	cwd := getdir()
 	fmt.Println("we are in the dir", cwd)
-	stat, err := linuxproc.ReadStat("/proc/stat")
+	stat, err := linuxproc.ReadStat(statdir)
 	
 	if err != nil {
 		log.Fatal(err)
@@ -23,18 +27,19 @@ func main() {
 	
 	for _, s := range stat.CPUStats {
 		fmt.Println(
-			s.User,
-			s.Nice,
-			s.System,
-			s.Idle,
-			s.IOWait,
+			"\nCPU Stats\n", 
+			"\nUser: ", s.User,
+			"\nNice: ", s.Nice,
+			"\nSystem: ", s.System,
+			"\nIdle: ", s.Idle,
+			"\nIoWait: ", s.IOWait,
 		)
 	}
 	fmt.Println(
-		"Cpu all stats", stat.CPUStatAll, 
-		stat.CPUStats,
-		stat.Processes,
-		stat.BootTime,
+		"\nCpu stats combined: ", stat.CPUStatAll, 
+		"\nCpu stats individual: ", stat.CPUStats,
+		"\nNumber of processes: ", stat.Processes,
+		"\nUp since: ", stat.BootTime,
 	)
 	
 }
