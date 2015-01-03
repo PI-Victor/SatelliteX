@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 	"log"
-	_ "io" //silence the unused imports with the blank operator
 	"path/filepath"
+	_ "io" //silence the unused imports with the blank operator
 	linuxproc "github.com/c9s/goprocinfo/linux"
 	_ "github.com/sevlyar/go-daemon"
 )
@@ -14,12 +14,11 @@ const (
 	statdir = "/proc/stat"
 )
 
-
 var (
-	cwd string = getdir()
+	cwd string = getDir()
 )
 
-func main() {
+func getSeries() {
 	//just print the dir for the file for now
 	fmt.Println("we are in the dir", cwd)
 	stat, err := linuxproc.ReadStat(statdir)
@@ -44,11 +43,9 @@ func main() {
 		"\nNumber of processes: ", stat.Processes,
 		"\nUp since: ", stat.BootTime,
 	)
-	
 }
 
-
-func getdir() (dir string) {
+func getDir() (dir string) {
 	//get the absolutepath of this file
 	//os.Args[0] is the filename
 	//NOTE: must be installed and not ran with go run
@@ -60,4 +57,6 @@ func getdir() (dir string) {
 	return
 }
 
-
+func main() {
+	
+}
