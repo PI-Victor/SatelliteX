@@ -27,7 +27,6 @@ func metricsProvider()  {
 		log.Fatal(err)
 	}
 	for _, cpuStat := range stat.CPUStats {
-
 		iCpuStats := individualCpuStats{
 			cpuStat.User,
 			cpuStat.Nice,
@@ -37,7 +36,6 @@ func metricsProvider()  {
 		}
 		fmt.Println(iCpuStats)
 	}
-
 }
 
 func GetSeries() {
@@ -49,17 +47,9 @@ func GetSeries() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	for _, s := range stat.CPUStats {
-		fmt.Println(
-			"\nCPU Stats\n", 
-			"\nUser: ", s.User,
-			"\nNice: ", s.Nice,
-			"\nSystem: ", s.System,
-			"\nIdle: ", s.Idle,
-			"\nIoWait: ", s.IOWait,
-		)
-	}
+
+	metricsProvider()
+
 	fmt.Println(
 		"\nCpu stats combined: ", stat.CPUStatAll, 
 		"\nCpu stats individual: ", stat.CPUStats,
