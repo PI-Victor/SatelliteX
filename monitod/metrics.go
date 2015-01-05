@@ -9,17 +9,35 @@ import (
 	_ "github.com/sevlyar/go-daemon"
 )
 
-type CpuStat struct {
-	user      float64
-	nice      float64
-	system    float64
-	idle      float64
-	iowait    float64
+type individualCpuStats struct {
+	user      uint64
+	nice      uint64
+	system    uint64
+	idle      uint64
+	iowait    uint64
+}
+
+func(c *individualCpuStats) filterCpuStat(metricFilter string) {
 	
 }
 
-func (c *CpuStat) getCpuStat() {
-	
+func metricsProvider()  {
+	stat, err := linuxproc.ReadStat(statdir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, cpuStat := range stat.CPUStats {
+
+		iCpuStats := individualCpuStats{
+			cpuStat.User,
+			cpuStat.Nice,
+			cpuStat.System,
+			cpuStat.Idle,
+			cpuStat.IOWait,
+		}
+		fmt.Println(iCpuStats)
+	}
+
 }
 
 func GetSeries() {
