@@ -18,7 +18,12 @@ type individualCpuStats struct {
 }
 
 func(c *individualCpuStats) filterCpuStat(metricFilter string) {
-	
+	if len(mectriFilter) != 0 {
+		//this means we want to filter the returned
+		//array based on what we got
+		
+	}
+	return
 }
 
 func metricsProvider()  {
