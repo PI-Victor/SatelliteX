@@ -6,7 +6,7 @@ import (
 	"log"
 	_ "io" //silence the unused imports with the blank operator
 	linuxproc "github.com/c9s/goprocinfo/linux"
-	_ "github.com/sevlyar/go-daemon"
+
 )
 
 type individualCpuStats struct {
@@ -17,15 +17,16 @@ type individualCpuStats struct {
 	iowait    uint64
 }
 
-func(c *individualCpuStats) filterCpuStat(metricFilter string) {
+func(c *individualCpuStats) filterCpuStat(metricFilter string) []byte {
 	if len(mectriFilter) != 0 {
+		//len() is faster than string comparison
 		//this means we want to filter the returned
 		//array based on what we got
 		
 	}
 	return
 }
-
+//remember to return a map with the stats collected
 func metricsProvider()  {
 	stat, err := linuxproc.ReadStat(statdir)
 	if err != nil {
