@@ -19,8 +19,11 @@ type individualCpuStats struct {
  
 const (
 	uri = "127.0.0.1:27017" 
-	monitodb = "monito"
-	cpustats = "cpu_stats"
+	monitoDb = "monito"
+	cpuStats = "cpu_stats"
+	networkStats = "net_stats"
+	memStats = "mem_stats"
+	
 )
 //make this exportable
 func DbFactory() string connectionInfo {
