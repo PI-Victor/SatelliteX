@@ -17,14 +17,15 @@ type individualCpuStats struct {
 	iowait    uint64
 }
 
-func(c *individualCpuStats) filterCpuStat(metricFilter string) []byte {
-	if len(mectriFilter) != 0 {
+func(c *individualCpuStats) filterCpuStat(metricFilter string) {
+
+	if len(metricFilter) != 0 {
 		//len() is faster than string comparison
 		//this means we want to filter the returned
 		//array based on what we got
-		
+		fmt.Println("test")
 	}
-	return
+
 }
 //remember to return a map with the stats collected
 func metricsProvider()  {

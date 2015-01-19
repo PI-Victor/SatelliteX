@@ -1,5 +1,6 @@
-package monito
+package monitod
 
 import (
+	_ "fmt"
 	
 )
