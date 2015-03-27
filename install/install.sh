@@ -34,7 +34,7 @@ cleanall() {
     # we're gonna recompile everything
     if [ -d $GOBUILD ]; then
 	rm -f $GOBUILD/*
-	echo "Removed directory content of $GOBUILD" 
+	echo "Removed directory content of $GOBUILD"
     fi
     # assume we're running on 64bits
     # remove workspace objects before recompiling them

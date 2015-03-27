@@ -6,7 +6,6 @@ import (
 	"log"
 	_ "io" //silence the unused imports with the blank operator
 	linuxproc "github.com/c9s/goprocinfo/linux"
-
 )
 
 type individualCpuStats struct {
@@ -34,7 +33,7 @@ func metricsProvider()  {
 		log.Fatal(err)
 	}
 	for _, cpuStat := range stat.CPUStats {
-		iCpuStats := individualCpuStats{
+		iCpuStats := individualCpuStats {
 			cpuStat.User,
 			cpuStat.Nice,
 			cpuStat.System,
