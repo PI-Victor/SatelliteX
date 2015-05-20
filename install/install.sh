@@ -44,9 +44,9 @@ cleanall() {
 compile() {
     # compile all main binaries to build dir
     for CMDDIR in "$(ls ./cmd)"; do
-	echo "Building... "
-	go build -o $GOBUILD/$CMDDIR ./cmd/$CMDDIR
-	echo "Compiled $CMDDIR to $GOBUILD/$CMDDIR"
+		echo "Building... "
+		go build -o $GOBUILD/$CMDDIR ./cmd/$CMDDIR
+		echo "Compiled $CMDDIR to $GOBUILD/$CMDDIR"
     done
 }
 
@@ -54,31 +54,31 @@ install() {
     # this also installs the binary as a soft link to
     # /usr/bin
     for APPBIN in "$(ls $GOBUILDSU)"; do
-	echo "Trying to create symlink for $GOBUILD/$APPBIN in /usr/bin"
-	ln -s $GOBUILDSU/$APPBIN /usr/bin/$APPBIN
-	if [ "$?" -eq 0 ];then
-	    echo "Created symlink"
-	fi
+		echo "Trying to create symlink for $GOBUILD/$APPBIN in /usr/bin"
+		ln -s $GOBUILDSU/$APPBIN /usr/bin/$APPBIN
+		if [ "$?" -eq 0 ];then
+	    	echo "Created symlink"
+		fi
     done
 }
 
 makedir() {
     # check if main build dir is in the go path
     if [ -z "$GOBUILD" ]; then
-	echo "Creating directory $GOBUILD"
-	mkdir -p $GOBUILD
-	# but add everything to $PATH so that it desrupts the
-	# current GO env of the host as less as possilbe
-	# and make compiled bin available
-	export PATH=$PATH:$GOBUILD # THIS IS NOT A GOOD IDEA, CHANGE THIS WHENEVER
+		echo "Creating directory $GOBUILD"
+		mkdir -p $GOBUILD
+		# but add everything to $PATH so that it desrupts the
+		# current GO env of the host as less as possilbe
+		# and make compiled bin available
+		export PATH=$PATH:$GOBUILD # THIS IS NOT A GOOD IDEA, CHANGE THIS WHENEVER
     fi
 }
 
 main() {
     # exit if we don't find the go bin
     if [ ! -f "$GOBIN" ] ; then
-	echo "Go binary not found in" $GOBIN
-	exit
+		echo "Go binary not found in" $GOBIN
+		exit
     fi
     
     # must refactor logic
