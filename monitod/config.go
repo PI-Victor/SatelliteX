@@ -33,7 +33,7 @@ func (confSet *ConfigSet) getConfigFiles(dirPath string) (ymlFiles []string, err
 	files, err := ioutil.ReadDir(dirPath)
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	for _, file := range files {
