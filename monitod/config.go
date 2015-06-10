@@ -1,4 +1,4 @@
-package utils
+package monitod
 
 import (
 	"fmt"
@@ -33,7 +33,7 @@ func (confSet *ConfigSet) getConfigFiles(dirPath string) (ymlFiles []string, err
 	files, err := ioutil.ReadDir(dirPath)
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	for _, file := range files {
@@ -47,7 +47,7 @@ func (confSet *ConfigSet) getConfigFiles(dirPath string) (ymlFiles []string, err
 	}
 
 	if arrayLen := len(confSet.ymlFiles); arrayLen == 0 {
-		return ymFiles, configDirEmpty
+		return ymlFiles, configDirEmpty
 	}
 
 	return confSet.ymlFiles, nil

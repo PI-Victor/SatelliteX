@@ -1,12 +1,12 @@
 package monitod
 
-
 import (
 	"fmt"
-	"log"
-	_ "io" //silence the unused imports with the blank operator
+	_ "log"
+	_ "io" 
 	linuxproc "github.com/c9s/goprocinfo/linux"
 )
+
 
 type individualCpuStats struct {
 	user      uint64
@@ -26,13 +26,17 @@ func(c *individualCpuStats) filterCpuStat(metricFilter string) {
 	}
 
 }
+
 //remember to return a map with the stats collected
-func metricsProvider()  {
-	stat, err := linuxproc.ReadStat(statdir)
+func metricsProvider()  (err error) {
+
+	cpuStat, err := linuxproc.ReadStat("/proc/stat")
+
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
-	for _, cpuStat := range stat.CPUStats {
+
+	for _, cpuStat := range cpuStat.CPUStats {
 		iCpuStats := individualCpuStats {
 			cpuStat.User,
 			cpuStat.Nice,
@@ -42,24 +46,26 @@ func metricsProvider()  {
 		}
 		fmt.Println(iCpuStats)
 	}
+	return nil
 }
 
-func GetSeries() {
+func GetSeries() (err error) {
+
 	//just print the dir for the file for now
-	fmt.Println("we are in the dir", cwd)
+	//fmt.Println("we are in the dir", cwd)
 	fmt.Println("This is a test")
-	stat, err := linuxproc.ReadStat(statdir)
-	
+
+	err = metricsProvider()
+
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	metricsProvider()
-
-	fmt.Println(
-		"\nCpu stats combined: ", stat.CPUStatAll, 
-		"\nCpu stats individual: ", stat.CPUStats,
-		"\nNumber of processes: ", stat.Processes,
-		"\nUp since: ", stat.BootTime,
-	)
+	// fmt.Println(
+	// 	"\nCpu stats combined: ", stat.CPUStatAll, 
+	// 	"\nCpu stats individual: ", stat.CPUStats,
+	// 	"\nNumber of processes: ", stat.Processes,
+	// 	"\nUp since: ", stat.BootTime,
+	// )
+	return nil
 }

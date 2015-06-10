@@ -1,5 +1,8 @@
-package provider
+package monitod
 
+import (
+	"fmt"
+)
 
 type dataSet struct {
 	f float64
