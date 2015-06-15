@@ -5,7 +5,14 @@ import (
 )
 
 type dataSet struct {
-	f float64
+	 name string
+	 value float64
+	 type []string{
+	 	"float",
+	 	"string"
+	 	"int"
+	 	"gauge"
+	 }
 }
 
 func (s dataSet) printDataSet() {

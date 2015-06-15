@@ -6,8 +6,7 @@ import(
 	_ "github.com/sevlyar/go-daemon"
 )
 
-//signals suck, use the interface from
-//https://github.com/codegangsta/cli
+
 var (
 	signal = flag.String("s", "",`send a signal to the daemon`)
 )

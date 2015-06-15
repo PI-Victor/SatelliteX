@@ -36,14 +36,16 @@ func metricsProvider()  (err error) {
 		return err
 	}
 
+
+
 	for _, cpuStat := range cpuStat.CPUStats {
-		iCpuStats := individualCpuStats {
-			cpuStat.User,
-			cpuStat.Nice,
-			cpuStat.System,
-			cpuStat.Idle,
-			cpuStat.IOWait,
-		}
+			iCpuStats := individualCpuStats {
+				cpuStat.User,
+				cpuStat.Nice,
+				cpuStat.System,
+				cpuStat.Idle,
+				cpuStat.IOWait,
+			}
 		fmt.Println(iCpuStats)
 	}
 	return nil
