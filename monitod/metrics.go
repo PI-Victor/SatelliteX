@@ -2,21 +2,21 @@ package monitod
 
 import (
 	"fmt"
+	_ "io"
 	_ "log"
-	_ "io" 
+
 	linuxproc "github.com/c9s/goprocinfo/linux"
 )
 
-
 type individualCpuStats struct {
-	user      uint64
-	nice      uint64
-	system    uint64
-	idle      uint64
-	iowait    uint64
+	user   uint64
+	nice   uint64
+	system uint64
+	idle   uint64
+	iowait uint64
 }
 
-func(c *individualCpuStats) filterCpuStat(metricFilter string) {
+func (c *individualCpuStats) filterCpuStat(metricFilter string) {
 
 	if len(metricFilter) != 0 {
 		//len() is faster than string comparison
@@ -28,7 +28,7 @@ func(c *individualCpuStats) filterCpuStat(metricFilter string) {
 }
 
 //remember to return a map with the stats collected
-func metricsProvider()  (err error) {
+func metricsProvider() (err error) {
 
 	cpuStat, err := linuxproc.ReadStat("/proc/stat")
 
@@ -36,16 +36,14 @@ func metricsProvider()  (err error) {
 		return err
 	}
 
-
-
 	for _, cpuStat := range cpuStat.CPUStats {
-			iCpuStats := individualCpuStats {
-				cpuStat.User,
-				cpuStat.Nice,
-				cpuStat.System,
-				cpuStat.Idle,
-				cpuStat.IOWait,
-			}
+		iCpuStats := individualCpuStats{
+			cpuStat.User,
+			cpuStat.Nice,
+			cpuStat.System,
+			cpuStat.Idle,
+			cpuStat.IOWait,
+		}
 		fmt.Println(iCpuStats)
 	}
 	return nil
@@ -64,7 +62,7 @@ func GetSeries() (err error) {
 	}
 
 	// fmt.Println(
-	// 	"\nCpu stats combined: ", stat.CPUStatAll, 
+	// 	"\nCpu stats combined: ", stat.CPUStatAll,
 	// 	"\nCpu stats individual: ", stat.CPUStats,
 	// 	"\nNumber of processes: ", stat.Processes,
 	// 	"\nUp since: ", stat.BootTime,
