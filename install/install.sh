@@ -6,20 +6,20 @@
 
 ARG=$1
 GOBIN="/usr/bin/go"
-# all main entry points that need to be build will be 
+# all main entry points that need to be build will be
 # nested in the cmd folder
-# CMDDIR="./cmd" 
+# CMDDIR="./cmd"
 # application workspace
 APPWS="application/replaceme"
 GOBUILD=$GOPATH/build
 # what do we want to execut when there's no arg passed?
-# in the current context it's bloated 
+# in the current context it's bloated
 # keep for now remember to simplify later
-DEFAULT_BUNDLES=( 
+DEFAULT_BUNDLES=(
     install
     clean
     build
-    gotest 
+    gotest
 )
 # gobuild for SU is
 GOBUILDSU="/home/vectra/projects/go_projects/build"
@@ -70,7 +70,6 @@ makedir() {
 		# but add everything to $PATH so that it desrupts the
 		# current GO env of the host as less as possilbe
 		# and make compiled bin available
-		export PATH=$PATH:$GOBUILD # THIS IS NOT A GOOD IDEA, CHANGE THIS WHENEVER
     fi
 }
 
@@ -80,7 +79,7 @@ main() {
 		echo "Go binary not found in" $GOBIN
 		exit
     fi
-    
+
     # must refactor logic
     case "$1" in
 	clean)
