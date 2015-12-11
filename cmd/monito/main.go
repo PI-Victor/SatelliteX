@@ -7,13 +7,18 @@ import (
 
 func main() {
 	RootCmd.AddCommand(cmd.StartCommand)
+	RootCmd.AddCommand(cmd.CheckConfig)
+	RootCmd.AddCommand(cmd.LoadAssets)
 	RootCmd.Execute()
 }
 
 var RootCmd = &cobra.Command{
 	Use:   "monito",
 	Short: "Server Monitoring Service",
-	Long:  "Monito - Server monitoring service",
+	Long:  "Monito - A resiliant system monitoring service",
+	Example: `monito start --config=/home/users/.monito/monito.yaml
+monito check --config=/home/users/.monito/monito.yaml
+	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
 	},

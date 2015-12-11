@@ -10,7 +10,7 @@ import (
 // Main monitoring service core
 type MonitoService struct {
 	workDir    string
-	configFile string
+	ConfigFile string
 }
 
 func (m *MonitoService) loadService(mainFilePath string) {
@@ -22,5 +22,14 @@ func (m *MonitoService) loadService(mainFilePath string) {
 }
 
 func (m *MonitoService) Start() {
+	m.loadService("String")
 	fmt.Printf("Starting %s", m.workDir)
+}
+
+func (m *MonitoService) CheckConfig() {
+	fmt.Printf("Checking configuration, %s", m.ConfigFile)
+}
+
+func (m *MonitoService) LoadAssets() {
+
 }
