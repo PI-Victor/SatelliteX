@@ -7,9 +7,9 @@ import (
 
 var CheckConfig = &cobra.Command{
 	Use:     "check",
-	Short:   "Run a dry-check on the provided config file",
+	Short:   "Run a dry check on the provided config file",
 	Long:    "Don't start the monitoring server, just run a check on the config file provided by --config=",
-	Example: `monito check --conf=/opt/monito/monito.yaml`,
+	Example: `monito check --config=/opt/monito/monito.yaml`,
 	Run: func(cmd *cobra.Command, args []string) {
 		monitoService := &service.MonitoService{ConfigFile: confFile}
 		monitoService.CheckConfig()

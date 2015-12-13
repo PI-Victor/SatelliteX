@@ -16,8 +16,8 @@ var RootCmd = &cobra.Command{
 	Use:   "monito",
 	Short: "Server Monitoring Service",
 	Long:  "Monito - A resilient system monitoring service",
-	Example: `monito start --config=/home/users/.monito/monito.yaml
-monito check --config=/home/users/.monito/monito.yaml
+	Example: `monito start --config=/opt/monito/monito.yaml
+monito check --config=/opt/monito/monito.yaml
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
