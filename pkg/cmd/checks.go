@@ -11,7 +11,7 @@ var CheckConfig = &cobra.Command{
 	Long:    "Don't start the monitoring server, just run a check on the config file provided by --config=",
 	Example: `monito check --config=/opt/monito/monito.yaml`,
 	Run: func(cmd *cobra.Command, args []string) {
-		monitoService := &service.MonitoService{ConfigFile: confFile}
+		monitoService := &monito.Service{ConfigFile: confFile}
 		monitoService.CheckConfig()
 	},
 }
@@ -22,7 +22,7 @@ var LoadAssets = &cobra.Command{
 	Long:    "Load and test configured assets",
 	Example: `monito load-assets`,
 	Run: func(cmd *cobra.Command, args []string) {
-		monitoService := &service.MonitoService{ConfigFile: confFile}
+		monitoService := &monito.Service{ConfigFile: confFile}
 		monitoService.LoadAssets()
 	},
 }
