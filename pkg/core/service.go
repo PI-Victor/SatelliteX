@@ -3,6 +3,7 @@ package monito
 import (
 	"fmt"
 	"io"
+	"time"
 
 	"github.com/PI-Victor/monito/pkg"
 	"github.com/PI-Victor/monito/pkg/log"
@@ -27,10 +28,14 @@ func (m *MainService) loadService() error {
 
 // Start - Starts the main service
 func (m *MainService) Start() {
+	log.Info("Loading Services for monito...")
 	if err := m.loadService(); err != nil {
 		log.Panic("Failed to start monito... ")
 	}
-
+	for {
+		time.Sleep(10 * time.Second)
+		log.Info("Logging metrics...")
+	}
 }
 
 //CheckConfig - validates the configuration file
