@@ -2,28 +2,40 @@ package monito
 
 import (
 	"fmt"
-	"log"
+	"io"
+	"time"
 
 	"github.com/PI-Victor/monito/pkg"
+	"github.com/PI-Victor/monito/pkg/log"
 )
 
 // MainService - Main monitoring service core
 type MainService struct {
 	ConfigFile string
+	output     io.Writer
+	MainNode   bool
 }
 
-func (m *MainService) loadService(mainFilePath string) {
-	workdir, err := util.GetWorkDir(mainFilePath)
+//MainService validate the loading of assets.
+func (m *MainService) loadService() error {
+	configFile, err := util.ReadConfigFile(m.ConfigFile)
 	if err != nil {
-		log.Fatal("An error occured while getting the working directory")
+		return err
 	}
-	fmt.Printf("%q", workdir)
+	fmt.Println(configFile)
+	return nil
 }
 
 // Start - Starts the main service
 func (m *MainService) Start() {
-	m.loadService("String")
-
+	log.Info("Loading Services for monito...")
+	if err := m.loadService(); err != nil {
+		log.Panic("Failed to start monito... ")
+	}
+	for {
+		time.Sleep(10 * time.Second)
+		log.Info("Logging metrics...")
+	}
 }
 
 //CheckConfig - validates the configuration file

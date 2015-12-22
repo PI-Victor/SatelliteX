@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// CheckConfig cobra command that validates the configuration
 var CheckConfig = &cobra.Command{
 	Use:     "check",
 	Short:   "Run a dry check on the provided config file",
@@ -16,6 +17,7 @@ var CheckConfig = &cobra.Command{
 	},
 }
 
+// LoadAssets reads the served config file and tries to loads assets
 var LoadAssets = &cobra.Command{
 	Use:     "load-assets",
 	Short:   "Load and test configured assets",
