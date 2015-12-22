@@ -9,6 +9,7 @@ var (
 	confFile string
 )
 
+// StartCommand starts the main server
 var StartCommand = &cobra.Command{
 	Use:   "start",
 	Short: "Start the server monitor",

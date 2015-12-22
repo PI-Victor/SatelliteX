@@ -12,6 +12,7 @@ func main() {
 	RootCmd.Execute()
 }
 
+// RootCmd main command for monito
 var RootCmd = &cobra.Command{
 	Use:   "monito",
 	Short: "Server Monitoring Service",

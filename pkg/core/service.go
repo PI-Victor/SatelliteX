@@ -1,11 +1,6 @@
 package monito
 
-import (
-	"fmt"
-	"log"
-
-	"github.com/PI-Victor/monito/pkg"
-)
+import "fmt"
 
 // MainService - Main monitoring service core
 type MainService struct {
@@ -13,11 +8,7 @@ type MainService struct {
 }
 
 func (m *MainService) loadService(mainFilePath string) {
-	workdir, err := util.GetWorkDir(mainFilePath)
-	if err != nil {
-		log.Fatal("An error occured while getting the working directory")
-	}
-	fmt.Printf("%q", workdir)
+
 }
 
 // Start - Starts the main service
