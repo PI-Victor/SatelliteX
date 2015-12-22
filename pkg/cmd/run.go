@@ -15,11 +15,13 @@ var StartCommand = &cobra.Command{
 	Short: "Start the server monitor",
 	Long:  "Start Monito, the server monitor",
 	Run: func(cmd *cobra.Command, args []string) {
-		monitoService := &monito.MainService{}
+		monitoService := &monito.MainService{
+			ConfigFile: confFile,
+		}
 		monitoService.Start()
 	},
 }
 
 func init() {
-	StartCommand.PersistentFlags().StringVar(&confFile, "config", "c", "Specify a yaml configuration file")
+	StartCommand.PersistentFlags().StringVar(&confFile, "config", "c", "Specify a configuration file")
 }

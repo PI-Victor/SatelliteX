@@ -1,19 +1,35 @@
 package monito
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+
+	"github.com/PI-Victor/monito/pkg"
+	"github.com/PI-Victor/monito/pkg/log"
+)
 
 // MainService - Main monitoring service core
 type MainService struct {
 	ConfigFile string
+	output     io.Writer
+	MainNode   bool
 }
 
-func (m *MainService) loadService(mainFilePath string) {
-
+//MainService validate the loading of assets.
+func (m *MainService) loadService() error {
+	configFile, err := util.ReadConfigFile(m.ConfigFile)
+	if err != nil {
+		return err
+	}
+	fmt.Println(configFile)
+	return nil
 }
 
 // Start - Starts the main service
 func (m *MainService) Start() {
-	m.loadService("String")
+	if err := m.loadService(); err != nil {
+		log.Panic("Failed to start monito... ")
+	}
 
 }
 
