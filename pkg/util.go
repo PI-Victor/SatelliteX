@@ -15,8 +15,5 @@ func ReadConfigFile(configFile string) (*os.File, error) {
 	return fileHandler, nil
 }
 
-//PathJoiner helper to join paths
-func PathJoiner(path, dir string) {}
-
 //SetupLogging configuration setup for monito's logging system.
 func SetupLogging() {}
