@@ -34,16 +34,18 @@ func (m *MainService) Start() {
 	}
 	for {
 		time.Sleep(10 * time.Second)
-		log.Info("Logging metrics...")
+		ReadSystemMetrics()
+		log.Info("Logging System metrics...")
 	}
 }
 
-//CheckConfig - validates the configuration file
+// CheckConfig - validates the configuration file
 func (m *MainService) CheckConfig() {
-	fmt.Printf("Checking configuration, %s", m.ConfigFile)
+	// leave an empty line since we envoke this
+	fmt.Println("")
 }
 
-//LoadAssets - load and test configured components for runtime
+// LoadAssets - load and test configured components for runtime
 func (m *MainService) LoadAssets() {
 
 }
