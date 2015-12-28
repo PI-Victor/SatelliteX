@@ -51,6 +51,7 @@ func cpuInfo() {
 
 func dockerInfo() {
 	dockerIDList, _ := docker.GetDockerIDList()
+	fmt.Println(dockerIDList)
 	// these two function need a valid docker container as a parameter
 	// https://godoc.org/github.com/shirou/gopsutil/docker
 	cgroupCPU, _ := docker.CgroupCPU("test", "test")
