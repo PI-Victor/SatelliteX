@@ -10,6 +10,7 @@ import (
 )
 
 // MainService - Main monitoring service core
+// the main service should have a pointer to a json configuration, not the filepath to the config.
 type MainService struct {
 	ConfigFile string
 	output     io.Writer
