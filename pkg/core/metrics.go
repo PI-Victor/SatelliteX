@@ -2,6 +2,7 @@ package monito
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/docker"
@@ -11,44 +12,62 @@ import (
 )
 
 // ReadSystemMetrics - log psutil local system metrics.
-// TODO: implement async
+// TODO: implement concurrency
 func ReadSystemMetrics() {
-	// system information
-	getHost()
-	cpuInfo()
+
+	var wg sync.WaitGroup
+	wg.Add(3)
 
 	// performance
-	readMemory()
-	swapInfo()
-	loadInfo()
+	go getSystemMemory(&wg)
+	go getSystemSwap(&wg)
+	go getSystemLoad(&wg)
+	wg.Wait()
+}
+
+// ReadSystemInfo read one time needed system information
+func ReadSystemInfo() {
+	go hostInfo()
+	go cpuInfo()
 
 	// other
-	dockerInfo()
+	go dockerInfo()
 }
 
-// slaves shouldn't run their own api, but rather report to master
-// this is where to get the hostname
-
-func getHost() {
-	hostInfo, _ := host.HostInfo()
-	fmt.Printf("This is the host info: %+v \n", hostInfo)
-}
-
-func readMemory() {
+func getSystemMemory(wg *sync.WaitGroup) {
+	defer wg.Done()
 	vmem, _ := mem.VirtualMemory()
 	fmt.Printf("This is the memory info: %v \n", vmem)
 }
 
-func swapInfo() {
+func getSystemSwap(wg *sync.WaitGroup) {
+	defer wg.Done()
 	swap, _ := mem.SwapMemory()
 	fmt.Printf("This is the swap info: %v \n", swap)
+
 }
 
+func getSystemLoad(wg *sync.WaitGroup) {
+	defer wg.Done()
+	loadInfo, _ := load.LoadAvg()
+	fmt.Printf("Load average info: %v \n", loadInfo)
+}
+
+// read this only on config load and at config reload, otherwise remove from pool.
 func cpuInfo() {
 	cpu, _ := cpu.CPUInfo()
 	fmt.Printf("This is the CPU info: %v \n", cpu)
 }
 
+// slaves shouldn't run their own api, but rather report to master
+// this is where to get the hostname
+func hostInfo() *host.HostInfoStat {
+	hostInfo, _ := host.HostInfo()
+	fmt.Printf("This is the host info: %+v \n", hostInfo)
+	return hostInfo
+}
+
+// skip on pool
 func dockerInfo() {
 	dockerIDList, _ := docker.GetDockerIDList()
 	fmt.Println(dockerIDList)
@@ -57,10 +76,5 @@ func dockerInfo() {
 	cgroupCPU, _ := docker.CgroupCPU("test", "test")
 	cgroupMem, _ := docker.CgroupMem("test", "test")
 
-	fmt.Printf("Docker list info: %v \n, %v \n, %v \n", dockerIDList, cgroupCPU, cgroupMem)
-}
-
-func loadInfo() {
-	loadInfo, _ := load.LoadAvg()
-	fmt.Printf("Load average info: %v \n", loadInfo)
+	fmt.Printf("Docker list info: %q \n, %q \n, %v \n", dockerIDList, cgroupCPU, cgroupMem)
 }
