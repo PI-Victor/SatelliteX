@@ -21,5 +21,5 @@ var StartCommand = &cobra.Command{
 }
 
 func init() {
-	StartCommand.PersistentFlags().StringVar(&confFile, "config", "c", "Specify a configuration file")
+	StartCommand.PersistentFlags().StringVar(&confFile, "config", "", "Specify a configuration file")
 }
