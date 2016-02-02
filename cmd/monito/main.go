@@ -7,8 +7,7 @@ import (
 
 func main() {
 	RootCmd.AddCommand(cmd.StartCommand)
-	RootCmd.AddCommand(cmd.CheckConfig)
-	RootCmd.AddCommand(cmd.LoadAssets)
+	RootCmd.AddCommand(cmd.ValidateAssets)
 	RootCmd.Execute()
 }
 

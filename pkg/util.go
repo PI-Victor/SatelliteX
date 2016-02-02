@@ -15,5 +15,6 @@ func ReadConfigFile(configFile string) (*os.File, error) {
 	return fileHandler, nil
 }
 
-//SetupLogging configuration setup for monito's logging system.
-func SetupLogging() {}
+func GenerateConfigFile(configDir string) (*os.File, error) {
+	return nil, nil
+}
