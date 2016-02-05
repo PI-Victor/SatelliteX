@@ -2,7 +2,6 @@ package monito
 
 import (
 	"fmt"
-	"io"
 	"time"
 
 	"github.com/PI-Victor/monito/pkg"
@@ -13,7 +12,7 @@ import (
 type Server struct {
 	configDir  string
 	ConfigFile string
-	output     io.Writer
+	bindAddr   string
 	MainNode   bool
 }
 
@@ -21,8 +20,14 @@ func New(confFile string) *Server {
 	return &Server{ConfigFile: confFile}
 }
 
+func (m *Server) ListAPIEndpoints() []string {
+	alist := []string{"test1", "test1"}
+	return alist
+}
+
 //MainService validate the loading of assets.
-func (m *Server) loadService() error {
+func (m *Server) loadServices() error {
+	InitializeAPI(m)
 	validateConfig(m.ConfigFile)
 	return nil
 }
@@ -30,7 +35,7 @@ func (m *Server) loadService() error {
 // Start - Starts the main service
 func (m *Server) Start() {
 	log.Info("Loading Services for monito...")
-	if err := m.loadService(); err != nil {
+	if err := m.loadServices(); err != nil {
 		log.Panic("Failed to start monito... ")
 	}
 	for {
@@ -42,6 +47,7 @@ func (m *Server) Start() {
 
 // ValidateAssets - load and test configured components for runtime
 func (m *Server) ValidateAssets() error {
+	InitializeAPI()
 	return nil
 }
 
