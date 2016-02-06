@@ -13,19 +13,17 @@ type Server struct {
 	configDir  string
 	ConfigFile string
 	bindAddr   string
-	MainNode   bool
+	// we will use name as the namespace for our current instance
+	// of the server in the API
+	name     string
+	MainNode bool
 }
 
+// New - create a new server instance
 func New(confFile string) *Server {
 	return &Server{ConfigFile: confFile}
 }
 
-func (m *Server) ListAPIEndpoints() []string {
-	alist := []string{"test1", "test1"}
-	return alist
-}
-
-//MainService validate the loading of assets.
 func (m *Server) loadServices() error {
 	InitializeAPI(m)
 	validateConfig(m.ConfigFile)
@@ -47,7 +45,7 @@ func (m *Server) Start() {
 
 // ValidateAssets - load and test configured components for runtime
 func (m *Server) ValidateAssets() error {
-	InitializeAPI()
+	//InitializeAPI()
 	return nil
 }
 
